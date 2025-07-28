@@ -1,4 +1,18 @@
-node_modules/
-.env
+# Node modules
+client/node_modules/
+server/node_modules/
+
+# Environment files
+client/.env
+server/.env
+
+# Uploads and large files
 server/uploads/
 *.exe
+
+# Logs
+*.log
+
+# OS/system files
+.DS_Store
+Thumbs.db
