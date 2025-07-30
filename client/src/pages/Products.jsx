@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ProductNavbar from "../components/ProductNavbar";
 import SlideBarHero from "../components/SlideBarHero";
@@ -7,14 +8,6 @@ import ProductCard from "../components/ProductCard";
 import SectionHeadStyle from "../components/SectionHeadStyle";
 import CommomFooter from "../components/CommomFooter";
 import ProductSection from "../components/ProductSection";
-import {
-  fmcgproducts,
-  elecproducts,
-  clothproducts,
-  eceproducts,
-  kitchenproducts,
-  luggageproducts,
-} from "../data/products";
 import Banner from "../components/Banner";
 const banners = [
   {
@@ -64,6 +57,57 @@ const banners = [
 const Products = () => {
   const { state } = useLocation();
   const title = state?.title || localStorage.getItem("ownerName") || "User";
+  const categoryConfigs = [
+    { key: "fmcg", stateKey: "fmcgproduct", url: "fmcgproducts/fmcg" },
+    {
+      key: "electrical",
+      stateKey: "electricalproduct",
+      url: "electricalproducts/electrical",
+    },
+    {
+      key: "electronics",
+      stateKey: "electronicsproduct",
+      url: "electronicsproducts/electronics",
+    },
+    { key: "cloth", stateKey: "clothproduct", url: "clothproducts/cloth" },
+    {
+      key: "kitchen",
+      stateKey: "kitchenproduct",
+      url: "kitchenproducts/kitchen",
+    },
+    {
+      key: "luggage",
+      stateKey: "luggageproduct",
+      url: "luggageproducts/luggage",
+    },
+  ];
+
+  const [fmcgproduct, setfmcgProducts] = useState([]);
+  const [electricalproduct, setelectricalProducts] = useState([]);
+  const [electronicsproduct, setelectronicsProducts] = useState([]);
+  const [clothproduct, setclothProducts] = useState([]);
+  const [kitchenproduct, setkitchenProducts] = useState([]);
+  const [luggageproduct, setluggageProducts] = useState([]);
+
+  const stateSetters = {
+    fmcgproduct: setfmcgProducts,
+    electricalproduct: setelectricalProducts,
+    electronicsproduct: setelectronicsProducts,
+    clothproduct: setclothProducts,
+    kitchenproduct: setkitchenProducts,
+    luggageproduct: setluggageProducts,
+  };
+
+  useEffect(() => {
+    categoryConfigs.forEach(async ({ stateKey, url }) => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/${url}`);
+        stateSetters[stateKey](res.data);
+      } catch (err) {
+        console.error(`Failed to fetch ${stateKey} data`, err);
+      }
+    });
+  }, []);
   return (
     <div className="w-full h-fit">
       <ProductNavbar title={title} />
@@ -72,28 +116,28 @@ const Products = () => {
       <ProductSection
         heading="FMCG Products"
         img="/assets/indexImg/style3.png"
-        products={fmcgproducts}
+        products={fmcgproduct}
         linkTo="FMCG"
       />
 
       <ProductSection
         heading="Electrical Products"
         img="/assets/indexImg/style3.png"
-        products={elecproducts}
+        products={electricalproduct}
         linkTo="Electrical"
       />
 
       <ProductSection
         heading="Clothing Products"
         img="/assets/indexImg/style3.png"
-        products={clothproducts}
+        products={clothproduct}
         linkTo="Clothing"
       />
 
       <ProductSection
         heading="Electronics Products"
         img="/assets/indexImg/style3.png"
-        products={eceproducts}
+        products={electronicsproduct}
         linkTo="Electronics"
       />
       <Banner banner={"/assets/pageimg/ece_bannerimg-2.png"} />
@@ -101,7 +145,7 @@ const Products = () => {
       <ProductSection
         heading="Home and Kitchen Products"
         img="/assets/indexImg/style3.png"
-        products={kitchenproducts}
+        products={kitchenproduct}
         linkTo="Electronics"
       />
       <Banner banner={"/assets/pageimg/home_slidebaner2.JPG"} />
@@ -109,7 +153,7 @@ const Products = () => {
       <ProductSection
         heading="Luggage and Traveling Products"
         img="/assets/indexImg/style3.png"
-        products={luggageproducts}
+        products={luggageproduct}
         linkTo="Electronics"
       />
       <Banner banner={"/assets/pageimg/luggage_slidebaner1 copy.JPG"} />
@@ -117,194 +161,4 @@ const Products = () => {
     </div>
   );
 };
-
 export default Products;
-
-// new code
-// import React, { useState, useEffect } from "react";
-// import { Link, useNavigate, useLocation } from "react-router-dom";
-// import ProductNavbar from "../components/ProductNavbar";
-// import SlideBarHero from "../components/SlideBarHero";
-// import Category from "../components/Category";
-// import ProductCard from "../components/ProductCard";
-// import SectionHeadStyle from "../components/SectionHeadStyle";
-// import CommomFooter from "../components/CommomFooter";
-// import ProductSection from "../components/ProductSection";
-// import {
-//   fmcgproducts,
-//   elecproducts,
-//   clothproducts,
-//   eceproducts,
-//   kitchenproducts,
-//   luggageproducts,
-// } from "../data/products";
-// import Banner from "../components/Banner";
-
-// // Add these imports for the management modal
-// import ProductManagementModal from "../components/ProductManagementModal"; // We'll create this
-
-// const banners = [
-//   {
-//     image: "/assets/pageimg/fmcg_slidebaner-img-1.jpg",
-//     title: "Upgrade Your Wardrobe",
-//     description: "Shop the latest fashion trends for wholesale prices.",
-//     buttonText: "Explore Now",
-//   },
-//   // ... rest of your banners
-// ];
-
-// const Products = () => {
-//   const { state } = useLocation();
-//   const title = state?.title || localStorage.getItem("ownerName") || "User";
-//   const userRole = localStorage.getItem("role");
-//   const [showManagementModal, setShowManagementModal] = useState(false);
-//   const [userProducts, setUserProducts] = useState([]);
-//   const [loading, setLoading] = useState(false);
-
-//   // Check if user is admin or has management privileges
-//   const canManageProducts = userRole === "Admin" || userRole === "Retailer" || userRole === "Seller";
-
-//   // Fetch user's products (for management)
-//   useEffect(() => {
-//     if (canManageProducts) {
-//       fetchUserProducts();
-//     }
-//   }, [canManageProducts]);
-
-//   const fetchUserProducts = async () => {
-//     try {
-//       setLoading(true);
-//       const token = localStorage.getItem('token');
-//       const response = await fetch('http://localhost:5000/api/products', {
-//         headers: {
-//           'Authorization': `Bearer ${token}`,
-//           'Content-Type': 'application/json'
-//         }
-//       });
-
-//       if (response.ok) {
-//         const data = await response.json();
-//         setUserProducts(data);
-//       }
-//     } catch (error) {
-//       console.error('Error fetching products:', error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const handleProductUpdate = () => {
-//     // Refresh products when a product is added/edited/deleted
-//     fetchUserProducts();
-//   };
-
-//   return (
-//     <div className="w-full h-fit">
-//       <ProductNavbar title={title} />
-
-//       {/* Add Management Button for authorized users */}
-//       {canManageProducts && (
-//         <div className="fixed top-20 right-6 z-50">
-//           <button
-//             onClick={() => setShowManagementModal(true)}
-//             className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-//           >
-//             <i className="ri-add-circle-line"></i>
-//             Manage Products
-//           </button>
-//         </div>
-//       )}
-
-//       <SlideBarHero slide={banners} />
-//       <Category />
-
-//       {/* Show User's Products Section (only for management users) */}
-//       {canManageProducts && userProducts.length > 0 && (
-//         <div className="px-4 sm:px-6 lg:px-8 py-8">
-//           <SectionHeadStyle head="My Products" />
-//           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-//             {userProducts.slice(0, 4).map((product) => (
-//               <ProductCard
-//                 key={product._id}
-//                 product={{
-//                   id: product._id,
-//                   image: product.images?.[0] || "/assets/default-product.jpg",
-//                   name: product.name,
-//                   price: product.price,
-//                   originalPrice: product.price * 1.2,
-//                   discount: "20%",
-//                   rating: 4.5
-//                 }}
-//               />
-//             ))}
-//           </div>
-//           <div className="text-center mt-6">
-//             <button
-//               onClick={() => setShowManagementModal(true)}
-//               className="text-blue-600 hover:text-blue-800 font-medium"
-//             >
-//               View All My Products →
-//             </button>
-//           </div>
-//         </div>
-//       )}
-
-//       <ProductSection
-//         heading="FMCG Products"
-//         img="/assets/indexImg/style3.png"
-//         products={fmcgproducts}
-//         linkTo="FMCG"
-//       />
-
-//       <ProductSection
-//         heading="Electrical Products"
-//         img="/assets/indexImg/style3.png"
-//         products={elecproducts}
-//         linkTo="Electrical"
-//       />
-
-//       <ProductSection
-//         heading="Clothing Products"
-//         img="/assets/indexImg/style3.png"
-//         products={clothproducts}
-//         linkTo="Clothing"
-//       />
-
-//       <ProductSection
-//         heading="Electronics Products"
-//         img="/assets/indexImg/style3.png"
-//         products={eceproducts}
-//         linkTo="Electronics"
-//       />
-//       <Banner banner={"/assets/pageimg/ece_bannerimg-2.png"} />
-
-//       <ProductSection
-//         heading="Home and Kitchen Products"
-//         img="/assets/indexImg/style3.png"
-//         products={kitchenproducts}
-//         linkTo="Electronics"
-//       />
-//       <Banner banner={"/assets/pageimg/home_slidebaner2.JPG"} />
-
-//       <ProductSection
-//         heading="Luggage and Traveling Products"
-//         img="/assets/indexImg/style3.png"
-//         products={luggageproducts}
-//         linkTo="Electronics"
-//       />
-//       <Banner banner={"/assets/pageimg/luggage_slidebaner1 copy.JPG"} />
-
-//       <CommomFooter />
-
-//       {/* Product Management Modal */}
-//       {/* {showManagementModal && (
-//         <ProductManagementModal
-//           onClose={() => setShowManagementModal(false)}
-//           onProductUpdate={handleProductUpdate}
-//         />
-//       )} */}
-//     </div>
-//   );
-// };
-
-// export default Products;

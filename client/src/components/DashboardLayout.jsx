@@ -125,7 +125,7 @@ const DashboardLayout = ({ title, children, cards = [] }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 mt-32">
       {/* Remove mt-32 from here and add it to AdminNavbar if needed */}
       <AdminNavbar title={title} />
 

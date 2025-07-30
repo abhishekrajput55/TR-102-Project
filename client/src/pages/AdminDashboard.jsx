@@ -31,6 +31,7 @@ const AdminDashboard = () => {
       title: "Products",
       color: "bg-green-100",
       description: "Manage products",
+      onClick: () => navigate("/admin/product-manage-and-view"),
     },
     {
       title: "Orders",

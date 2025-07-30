@@ -1,7 +1,7 @@
 // server.js
 import "dotenv/config";
 import express from "express";
-import cors from "cors"; // Make sure this is installed: npm install cors
+import cors from "cors";
 console.log("MONGO_URI:", process.env.MONGO_URI);
 
 import { connectDB } from "./config/db.js";
@@ -13,7 +13,7 @@ const app = express();
 // ✅ Update origin to match your frontend
 app.use(
   cors({
-    origin: "http://localhost:5173", // ← Changed from 3000 to 5173
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -27,7 +27,13 @@ app.get("/", (req, res) => {
   res.send("<h1>Welcome to B2B Wholesale API</h1>");
 });
 // Routes
-app.use("/api/products", productRoutes);
+app.use("/api/fmcgproducts", productRoutes);
+app.use("/api/electricalproducts", productRoutes);
+app.use("/api/electronicsproducts", productRoutes);
+app.use("/api/clothproducts", productRoutes);
+app.use("/api/kitchenproducts", productRoutes);
+app.use("/api/luggageproducts", productRoutes);
+
 
 connectDB().then(() => {
   const PORT = process.env.PORT || 5000;

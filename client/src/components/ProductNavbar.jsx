@@ -62,9 +62,7 @@ const ProductNavbar = ({ title }) => {
               "Clothing & Accessories",
               "Electrical",
               "Home & Kitchen",
-              "Hardware & Sanitaryware",
-              "Toys, Baby & Sports",
-              "Footwear",
+              "Luggages & Bagpacks",
             ].map((category, i) => (
               <li
                 key={i}

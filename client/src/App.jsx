@@ -139,7 +139,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "remixicon/fonts/remixicon.css";
-import underworking from "/assets/indexImg/underworking.avif";
+import underworking from "/assets/indexImg/404.gif";
 
 // Homepage components
 import Navbar from "./components/Navbar";
@@ -160,6 +160,7 @@ import SellerDashboard from "./pages/SellerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 // admin dashboard
 import AdminProductRequests from "./pages/AdminProductRequests";
+import ProductsPage from "./pages/ProductsPage";
 import SellerAddProduct from "./pages/SellerAddProduct";
 // cart section
 import { CartProvider } from "./context/CartContext";
@@ -250,7 +251,14 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="/admin/product-manage-and-view"
+            element={
+              <ProtectedRoute>
+                <ProductsPage />
+              </ProtectedRoute>
+            }
+          />
           {/* Cart route - also protected since products page is protected */}
           <Route
             path="/cart"
@@ -279,6 +287,7 @@ const App = () => {
                 <h1 className="text-2xl text-center font-bold">
                   404 Not Found
                 </h1>
+                <p>This feature will be implemented in future!</p>
               </div>
             }
           />

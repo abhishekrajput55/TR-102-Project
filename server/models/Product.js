@@ -17,8 +17,33 @@ const productSchema = new mongoose.Schema(
 );
 
 // Export the model using productConnection
-export const Product = productConnection.model(
+export const fmcgProduct = productConnection.model(
   "Product",
   productSchema,
   "fmcg"
+);
+export const electricalProduct = productConnection.model(
+  "Product",
+  productSchema,
+  "electrical"
+);
+export const electronicsProduct = productConnection.model(
+  "Product",
+  productSchema,
+  "electronics"
+);
+export const clothProduct = productConnection.model(
+  "Product",
+  productSchema,
+  "cloth"
+);
+export const kitchenProduct = productConnection.model(
+  "Product",
+  productSchema,
+  "kitchen"
+);
+export const luggageProduct = productConnection.model(
+  "Product",
+  productSchema,
+  "luggage"
 );
