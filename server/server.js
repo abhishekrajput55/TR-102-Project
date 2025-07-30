@@ -44,7 +44,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-console.log("MONGO_URI:", process.env.MONGO_URI);
+// console.log("MONGO_URI:", process.env.MONGO_URI);
+console.log("MONGO_URI:", process.env.FRONTEND_URL);
 
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
