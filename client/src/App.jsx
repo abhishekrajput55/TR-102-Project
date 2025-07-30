@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "remixicon/fonts/remixicon.css";
-import underworking from "./assets/indexImg/404.gif";
+// import underworking from "./assets/indexImg/404.gif";
 
 // Homepage components
 import Navbar from "./components/Navbar";
@@ -145,7 +145,7 @@ const App = () => {
             path="*"
             element={
               <div className="w-full h-screen flex flex-col justify-center items-center">
-                <img src={underworking} alt="" />
+                <img src="/assets/indexImg/404.gif" alt="" />
                 <h1 className="text-2xl text-center font-bold">
                   404 Not Found
                 </h1>
