@@ -101,7 +101,7 @@ const Products = () => {
   useEffect(() => {
     categoryConfigs.forEach(async ({ stateKey, url }) => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/${url}`);
+        const res = await axios.get(`https://tr-102-project.onrender.com/api/${url}`);
         stateSetters[stateKey](res.data);
       } catch (err) {
         console.error(`Failed to fetch ${stateKey} data`, err);

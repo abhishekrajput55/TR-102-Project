@@ -38,7 +38,7 @@ const ProductsPage = () => {
     const fetchFmcgProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/fmcgproducts/fmcg",
+          "https://tr-102-project.onrender.com/api/fmcgproducts/fmcg",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`, // Add auth if needed
@@ -58,7 +58,7 @@ const ProductsPage = () => {
     const fetchElectricalProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/electricalproducts/electrical",
+          "https://tr-102-project.onrender.com/api/electricalproducts/electrical",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -77,7 +77,7 @@ const ProductsPage = () => {
     const fetchElectronicsProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/electronicsproducts/electronics",
+          "https://tr-102-project.onrender.com/api/electronicsproducts/electronics",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -96,7 +96,7 @@ const ProductsPage = () => {
     const fetchClothProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/clothproducts/cloth",
+          "https://tr-102-project.onrender.com/api/clothproducts/cloth",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -115,7 +115,7 @@ const ProductsPage = () => {
     const fetchHomeKitchenProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/kitchenproducts/kitchen",
+          "https://tr-102-project.onrender.com/api/kitchenproducts/kitchen",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -134,7 +134,7 @@ const ProductsPage = () => {
     const fetchLuggageProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/luggageproducts/luggage",
+          "https://tr-102-project.onrender.com/api/luggageproducts/luggage",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

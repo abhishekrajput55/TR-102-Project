@@ -31,7 +31,7 @@ const SellerAddProduct = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "http://localhost:5000/api/seller/products",
+        "https://tr-102-project.onrender.com/api/seller/products",
         {
           method: "POST",
           headers: {

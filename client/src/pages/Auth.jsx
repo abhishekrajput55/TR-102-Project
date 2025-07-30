@@ -105,8 +105,8 @@ const Auth = () => {
     }
 
     const url = isLogin
-      ? "http://localhost:5000/api/auth/login"
-      : "http://localhost:5000/api/auth/register";
+      ? "https://tr-102-project.onrender.com/api/auth/login"
+      : "https://tr-102-project.onrender.com/api/auth/register";
 
     try {
       const response = await fetch(url, {
