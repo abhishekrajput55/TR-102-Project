@@ -7,7 +7,6 @@ client/.env
 server/.env
 
 # Uploads and large files
-server/uploads/
 *.exe
 
 # Logs
