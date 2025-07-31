@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between lg:max-w-[90%] w-full mx-auto px-4 md:px-10 lg:px-28 py-1 font-bold">
         {/* Logo */}
         {/* <h1 className="text-xl text-themeColor"> */}
-        <Link to="/products">
+        <Link to="/">
           <img
             src="/assets/indexImg/weblogo-2.png"
             alt="website logo"

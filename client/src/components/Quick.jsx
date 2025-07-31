@@ -32,9 +32,6 @@ const Quick = () => {
       />
 
       <CardGrid cardData={quickLinks} />
-      <Link to="AdminDashboard">
-        <h1>Admin</h1>
-      </Link>
     </div>
   );
 };

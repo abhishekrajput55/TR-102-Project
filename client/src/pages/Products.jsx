@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ProductNavbar from "../components/ProductNavbar";
@@ -23,7 +23,7 @@ const banners = [
     buttonText: "Shop New",
   },
   {
-    image: "/assets/pageimg/luggages_slidebaner-img-1.JPG",
+    image: "/assets/pageimg/luggage_slidebaner2.JPG",
     title: "Smart Deals Everyday",
     description: "Save more when you buy more.",
     buttonText: "Grab Deals",
@@ -41,13 +41,13 @@ const banners = [
     buttonText: "Get Offer",
   },
   {
-    image: "/assets/pageimg/clothing_slidebaner-img-1.jpg",
+    image: "/assets/pageimg/clothing_sliderimg1.jpg",
     title: "Seasonal Collection",
     description: "Fresh picks for every season and occasion.",
     buttonText: "View Collection",
   },
   {
-    image: "/assets/pageimg/clothing_slidebaner-img-1.jpg",
+    image: "/assets/pageimg/clothing_sliderimg3.gif",
     title: "Trusted by Retailers",
     description: "Wholesale clothing trusted by 1000+ retailers.",
     buttonText: "Join Now",
@@ -57,6 +57,27 @@ const banners = [
 const Products = () => {
   const { state } = useLocation();
   const title = state?.title || localStorage.getItem("ownerName") || "User";
+  //  for scroll feature
+  const fmcgRef = useRef(null);
+  const electricalRef = useRef(null);
+  const clothRef = useRef(null);
+  const electronicsRef = useRef(null);
+  const kitchenRef = useRef(null);
+  const luggageRef = useRef(null);
+
+  const sectionRefs = {
+    "FMCG Products": fmcgRef,
+    Electrical: electricalRef,
+    "Clothing & Accessories": clothRef,
+    "Electronics & Appliances": electronicsRef,
+    "Home & Kitchen": kitchenRef,
+    "Luggages & Bagpacks": luggageRef,
+  };
+
+  const scrollToSection = (sectionName) => {
+    sectionRefs[sectionName]?.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const categoryConfigs = [
     { key: "fmcg", stateKey: "fmcgproduct", url: "fmcgproducts/fmcg" },
     {
@@ -101,7 +122,9 @@ const Products = () => {
   useEffect(() => {
     categoryConfigs.forEach(async ({ stateKey, url }) => {
       try {
-        const res = await axios.get(`https://tr-102-project.onrender.com/api/${url}`);
+        const res = await axios.get(
+          `https://tr-102-project.onrender.com/api/${url}`
+        );
         stateSetters[stateKey](res.data);
       } catch (err) {
         console.error(`Failed to fetch ${stateKey} data`, err);
@@ -110,10 +133,11 @@ const Products = () => {
   }, []);
   return (
     <div className="w-full h-fit">
-      <ProductNavbar title={title} />
+      <ProductNavbar title={title} onCategoryClick={scrollToSection} />
       <SlideBarHero slide={banners} />
       <Category />
       <ProductSection
+        ref={fmcgRef}
         heading="FMCG Products"
         img="/assets/indexImg/style3.png"
         products={fmcgproduct}
@@ -121,6 +145,7 @@ const Products = () => {
       />
 
       <ProductSection
+        ref={electricalRef}
         heading="Electrical Products"
         img="/assets/indexImg/style3.png"
         products={electricalproduct}
@@ -128,6 +153,7 @@ const Products = () => {
       />
 
       <ProductSection
+        ref={clothRef}
         heading="Clothing Products"
         img="/assets/indexImg/style3.png"
         products={clothproduct}
@@ -135,6 +161,7 @@ const Products = () => {
       />
 
       <ProductSection
+        ref={electronicsRef}
         heading="Electronics Products"
         img="/assets/indexImg/style3.png"
         products={electronicsproduct}
@@ -143,6 +170,7 @@ const Products = () => {
       <Banner banner={"/assets/pageimg/ece_bannerimg-2.png"} />
 
       <ProductSection
+        ref={kitchenRef}
         heading="Home and Kitchen Products"
         img="/assets/indexImg/style3.png"
         products={kitchenproduct}
@@ -151,6 +179,7 @@ const Products = () => {
       <Banner banner={"/assets/pageimg/home_slidebaner2.JPG"} />
 
       <ProductSection
+        ref={luggageRef}
         heading="Luggage and Traveling Products"
         img="/assets/indexImg/style3.png"
         products={luggageproduct}

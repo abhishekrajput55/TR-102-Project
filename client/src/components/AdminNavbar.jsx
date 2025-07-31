@@ -28,7 +28,12 @@ const AdminNavbar = ({ title }) => {
         {/* Icons */}
         <div className="flex items-center gap-4 text-xl text-themeColor">
           <Link to="/products">
-            <p>{title}</p>
+            <i
+              className="ri-user-3-line cursor-pointer hover:text-red-500 transition-colors"
+              title="User Acount"
+            >
+              {title}
+            </i>
           </Link>
 
           {/* Logout Icon with click handler */}

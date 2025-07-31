@@ -7,68 +7,34 @@ const SellerDashboard = () => {
   const navigate = useNavigate(); // Add this hook
   const title = state?.title || localStorage.getItem("ownerName") || "User";
 
-  const handleCardClick = (cardTitle) => {
-    switch (cardTitle) {
-      case "Add New Product":
-        navigate("/seller/add-product");
-        break;
-      case "My Products":
-        // You can create this page later
-        alert("My Products page coming soon!");
-        break;
-      case "Pending Approvals":
-        // You can create this page later
-        alert("Pending Approvals page coming soon!");
-        break;
-      case "My Orders":
-        // You can create this page later
-        alert("My Orders page coming soon!");
-        break;
-      default:
-        break;
-    }
-  };
-
   const cards = [
     {
       title: "Add New Product",
       color: "bg-green-100",
-      onClick: () => handleCardClick("Add New Product"),
+      onClick: () => navigate("/admin/product-manage-and-view"),
     },
     {
       title: "My Products",
       color: "bg-blue-100",
-      onClick: () => handleCardClick("My Products"),
+      onClick: () => navigate("/admin/product-manage-and-view"),
     },
     {
       title: "Pending Approvals",
       color: "bg-yellow-100",
-      onClick: () => handleCardClick("Pending Approvals"),
+      onClick: () => navigate("/admin/product-manage-and-view"),
     },
     {
       title: "My Orders",
       color: "bg-purple-100",
-      onClick: () => handleCardClick("My Orders"),
+      onClick: () => navigate("/admin/product-manage-and-view"),
     },
   ];
 
   return (
-    <DashboardLayout title={title}>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {cards.map((card, idx) => (
-          <div
-            key={idx}
-            className={`rounded-xl p-6 shadow-md hover:shadow-xl transition duration-300 cursor-pointer ${card.color}`}
-            onClick={card.onClick} // Add onClick handler
-          >
-            <h2 className="text-lg font-semibold text-gray-800">
-              {card.title}
-            </h2>
-            <p className="text-sm text-gray-600 mt-2">
-              Click to manage {card.title.toLowerCase()}.
-            </p>
-          </div>
-        ))}
+    <DashboardLayout title={title} cards={cards}>
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-bold mb-4">Seller Overview</h2>
+        {/* Your retailer content */}
       </div>
     </DashboardLayout>
   );

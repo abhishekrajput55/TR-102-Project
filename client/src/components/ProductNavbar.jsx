@@ -2,11 +2,20 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
-const ProductNavbar = ({ title }) => {
+const ProductNavbar = ({ title, onCategoryClick }) => {
   const { getCartItemCount } = useCart();
   const cartItemCount = getCartItemCount();
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate(); // Add this hook
+  // scroll feature
+  const categories = [
+    "FMCG Products",
+    "Electronics & Appliances",
+    "Clothing & Accessories",
+    "Electrical",
+    "Home & Kitchen",
+    "Luggages & Bagpacks",
+  ];
 
   const handleLogout = () => {
     // Remove all authentication-related data
@@ -56,17 +65,14 @@ const ProductNavbar = ({ title }) => {
               showDropdown ? "block" : "hidden"
             }`}
           >
-            {[
-              "FMCG Products",
-              "Electronics & Appliances",
-              "Clothing & Accessories",
-              "Electrical",
-              "Home & Kitchen",
-              "Luggages & Bagpacks",
-            ].map((category, i) => (
+            {categories.map((category, i) => (
               <li
                 key={i}
                 className="px-4 py-2 hover:bg-gray-100 text-sm text-black cursor-pointer"
+                onClick={() => {
+                  setShowDropdown(false);
+                  onCategoryClick(category);
+                }}
               >
                 {category}
               </li>
@@ -77,12 +83,20 @@ const ProductNavbar = ({ title }) => {
         {/* Icons */}
         <div className="flex items-center gap-4 text-xl text-themeColor">
           {/* Logout Icon with click handler */}
+          <Link to="/retailerDashboard">
+            <i
+              className="ri-user-3-line cursor-pointer hover:text-red-500 transition-colors"
+              title="User Acount"
+            >
+              {title}
+            </i>
+          </Link>
           <i
             className="ri-logout-box-line cursor-pointer hover:text-red-500 transition-colors"
             onClick={handleLogout}
             title="Logout"
           >
-            {title}
+            Logout
           </i>
           {/* <Link to="/cart">
             <i className="ri-shopping-cart-line cursor-pointer"></i>

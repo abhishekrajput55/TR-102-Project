@@ -1,10 +1,11 @@
+import React, { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import SectionHeadStyle from "./SectionHeadStyle";
 import ProductCard from "./ProductCard";
 
-const ProductSection = ({ heading, img, products, linkTo }) => {
+const ProductSection = forwardRef(({ heading, img, products, linkTo }, ref) => {
   return (
-    <div className="w-full h-fit mt-10">
+    <div ref={ref} className="w-full h-fit mt-10">
       <SectionHeadStyle img={img} heading={heading} />
       <div className="grid gap-6 grid-cols-2 sm:[grid-template-columns:repeat(auto-fit,_minmax(280px,_1fr))]">
         {products.map((product, index) => (
@@ -22,6 +23,6 @@ const ProductSection = ({ heading, img, products, linkTo }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProductSection;
